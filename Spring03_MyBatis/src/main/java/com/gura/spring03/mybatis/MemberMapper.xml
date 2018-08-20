@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+	<select id="getList" resultType="memberDto">
+		SELECT num, name, addr
+		FROM member
+		ORDER BY num DESC
+	</select>
+	<insert id="insert" parameterType="memberDto">
+		INSERT INTO member
+		(num, name, addr)
+		VALUES(member_seq.NEXTVAL, #{name}, #{addr})
+	</insert>
+	<update id="update" parameterType="memberDto">
+		UPDATE member
+		SET name=#{name}, addr=#{addr}
+		WHERE num=#{num}
+	</update>
+	<delete id="delete" parameterType="int">
+		DELETE FROM member
+		WHERE num=#{num}
+	</delete>
+	<select id="getData" parameterType="int" 
+		resultType="memberDto">
+		SELECT num,name,addr
+		FROM member
+		WHERE num=#{num}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+

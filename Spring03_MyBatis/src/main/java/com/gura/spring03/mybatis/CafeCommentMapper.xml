@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cafeComment">
+	<insert id="insert" parameterType="commentDto">
+		INSERT INTO board_cafe_comment
+		(num, writer, content, target_id, ref_group, comment_group,
+		regdate)
+		VALUES(#{num}, #{writer}, #{content},
+		#{target_id}, #{ref_group}, #{comment_group}, SYSDATE)		
+	</insert>
+	
+	<select id="getSequence" resultType="int">
+		SELECT board_cafe_seq.NEXTVAL
+		FROM DUAL
+	</select>
+	
+	<select id="getList" parameterType="int"
+		resultType="commentDto">
+		SELECT num, writer, content, target_id, ref_group, 
+			comment_group, 
+			TO_CHAR(regdate,'YYYY.MM.DD HH24:MI') regdate
+		FROM board_cafe_comment
+		WHERE ref_group=#{num}
+		ORDER BY comment_group ASC, num ASC			
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+

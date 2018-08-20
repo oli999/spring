@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="file">
+	
+	<!-- 자주 사용하는 sql 문을 미리 정의해 놓기 -->
+	<sql id="fileColumn">
+		num,writer,title,downCount,saveFileName,orgFileName,fileSize,
+		TO_CHAR(regdate, 'YYYY.MM.DD AM HH:MI') AS regdate
+	</sql>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM board_file
+		WHERE num=#{num}
+	</delete>
+	<update id="addDownCount" parameterType="int">
+		UPDATE board_file
+		SET downCount=downCount+1
+		WHERE num=#{num}
+	</update>
+	<select id="getData" parameterType="int"
+		resultType="fileDto">
+		SELECT <include refid="fileColumn"/>
+		FROM board_file
+		WHERE num=#{num}
+	</select>
+	
+	<insert id="insert" parameterType="fileDto">
+		INSERT INTO board_file
+		(num,writer,title,downCount,orgFileName,saveFileName,
+			fileSize,regdate)
+		VALUES(board_file_seq.NEXTVAL,#{writer},#{title},
+		#{downCount}, #{orgFileName}, #{saveFileName}, #{fileSize},
+			SYSDATE)
+	</insert>
+	
+	<select id="getList" parameterType="fileDto"
+		resultType="fileDto">
+		SELECT *
+		FROM (SELECT result1.*, ROWNUM rnum
+			  FROM ( SELECT <include refid="fileColumn"/>
+					FROM board_file
+					ORDER BY num DESC ) result1
+			  )
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
+	<select id="getCount" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0) 
+		FROM board_file
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
