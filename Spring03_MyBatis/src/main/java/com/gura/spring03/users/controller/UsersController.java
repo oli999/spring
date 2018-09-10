@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gura.spring03.users.dto.UsersDto;
@@ -22,6 +23,20 @@ public class UsersController {
 	//서비스 DI
 	@Autowired
 	private UsersService service;
+	
+	//프로필 이미지 업데이트 요청 처리
+	@RequestMapping("/users/profile_upload")
+	@ResponseBody
+	public Map<String, Object> authProfileUpdate
+	(HttpServletRequest request, @RequestParam MultipartFile file){
+		// upload 폴더에 저장된 파일명
+		String fileName=service.profileUpdate(request, file);
+		
+		// upload 폴더에 저장된 파일명을 json 으로 응답한다. 
+		Map<String, Object> map=new HashMap<>();
+		map.put("fileName", fileName);
+		return map;
+	}
 	
 	//회원가입 요청 처리
 	@RequestMapping("/users/signup")

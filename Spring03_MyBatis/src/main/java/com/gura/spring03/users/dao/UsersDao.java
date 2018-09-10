@@ -9,4 +9,5 @@ public interface UsersDao {
 	public void delete(String id);
 	public boolean canUseId(String id);
 	public void updatePwd(UsersDto dto);
+	public void updateProfile(UsersDto dto);
 }

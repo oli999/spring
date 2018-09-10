@@ -1,7 +1,9 @@
 package com.gura.spring03.users.service;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gura.spring03.users.dto.UsersDto;
@@ -16,6 +18,8 @@ public interface UsersService {
 	public boolean isValidPwd(String inputPwd, HttpSession session);
 	public void updatePwd(String pwd, HttpSession session);
 	public void delete(ModelAndView mView, HttpSession session);
+	public String profileUpdate(HttpServletRequest request, 
+			MultipartFile mFile);
 }
 
 

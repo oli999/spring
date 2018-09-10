@@ -24,6 +24,7 @@
 	<li><a href="file/list.do">자료실 목록 보기</a></li>
 	<li><a href="cafe/list.do">카페 글 목록 보기</a></li>
 	<li><a href="shop/list.do">상품 목록 보기</a></li>
+	<li><a href="ajax/upload_form.do">ajax 파일업로드 테스트</a></li>
 </ul>
 </body>
 </html>
